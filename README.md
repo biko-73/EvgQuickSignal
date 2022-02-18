@@ -1,2 +1,2 @@
-# JediMakerXtream
- IPTV Bouquet Creator
+# QuickSignal
+QuickSignal
