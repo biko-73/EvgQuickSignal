@@ -11,7 +11,8 @@
 ########################################################################################################################
 
 PACKAGE_DIR='EvgQuickSignal/main'
-MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.1_all"
+MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.1_all.ipk"
+
 
 ########################################################################################################################
 # Auto ... Do not change
@@ -19,9 +20,16 @@ MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.1_all"
 
 # Decide : which package ?
 MY_MAIN_URL="https://raw.githubusercontent.com/biko-73/"
-if which dpkg > /dev/null 2>&1; then
+if which opkg > /dev/null 2>&1; then
 	MY_FILE=$MY_IPK
 	MY_URL=$MY_MAIN_URL$PACKAGE_DIR'/'$MY_IPK
+else
+	echo
+	echo ======================================
+	echo == OPKG not found. Cannot continue. ==
+	echo ======================================
+	echo
+	exit 1
 fi
 MY_TMP_FILE="/tmp/"$MY_FILE
 
@@ -43,6 +51,7 @@ echo $MY_SEP
 echo 'Downloading '$MY_FILE' ...'
 echo $MY_SEP
 echo ''
+
 wget -T 2 $MY_URL -P "/tmp/"
 
 # Check download
@@ -53,11 +62,8 @@ if [ -f $MY_TMP_FILE ]; then
 	echo 'Installation started'
 	echo $MY_SEP
 	echo ''
-	if which dpkg > /dev/null 2>&1; then
-		apt-get install --reinstall $MY_TMP_FILE -y
-	else
-		opkg install --force-reinstall $MY_TMP_FILE
-	fi
+
+	opkg install --force-overwrite $MY_TMP_FILE
 	MY_RESULT=$?
 
 	# Result
@@ -67,11 +73,7 @@ if [ -f $MY_TMP_FILE ]; then
 		echo "   >>>>   SUCCESSFULLY INSTALLED   <<<<"
 		echo ''
 		echo "   >>>>         RESTARING         <<<<"
-		if which systemctl > /dev/null 2>&1; then
-			sleep 2; systemctl restart enigma2
-		else
-			init 4; sleep 4; init 3;
-		fi
+		init 4; sleep 4; init 3;
 	else
 		echo "   >>>>   INSTALLATION FAILED !   <<<<"
 	fi;
