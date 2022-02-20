@@ -1,9 +1,10 @@
 #!/bin/sh
 
+# ==============================================
+# SCRIPT : DOWNLOAD AND INSTALL EvgQuickSignal #
 # =====================================================================================================================
 # Command: wget https://raw.githubusercontent.com/biko-73/EvgQuickSignal/main/installer.sh -O - | /bin/sh #
 # =====================================================================================================================
-
 
 PACKAGE_DIR='EvgQuickSignal/main'
 MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.1_all.ipk"
@@ -42,16 +43,15 @@ echo ''
 wget -T 2 $MY_URL -P "/tmp/"
 
 if [ -f $MY_TMP_FILE ]; then
-
+	# Install
 	echo ''
 	echo $MY_SEP
 	echo 'Installation started'
 	echo $MY_SEP
 	echo ''
 
-	opkg install --force-overwrite $MY_TMP_FILE
+	opkg install --force-reinstall $MY_TMP_FILE
 	MY_RESULT=$?
-
 
 	echo ''
 	echo ''
@@ -75,3 +75,4 @@ else
 	exit 1
 fi
 
+# ------------------------------------------------------------------------------------------------------------
