@@ -7,7 +7,7 @@
 # =====================================================================================================================
 
 PACKAGE_DIR='EvgQuickSignal/main'
-MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.1_all.ipk"
+MY_IPK="enigma2-plugin-extensions-evgquicksignal_1.2_all"
 
 MY_MAIN_URL="https://raw.githubusercontent.com/biko-73/"
 if which opkg > /dev/null 2>&1; then
